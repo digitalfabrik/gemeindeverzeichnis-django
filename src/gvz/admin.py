@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import path
 
 from .models import AdministrativeDivision, ZipCode
+from .import_helpers import import_gvz_data, import_zip_data
 
 class CsvImportForm(forms.Form):
     csv_file = forms.FileField()
@@ -21,11 +22,8 @@ class AdministrativeDivisionAdmin(admin.ModelAdmin):
 
     def import_csv(self, request):
         if request.method == "POST":
-            csv_file = request.FILES["csv_file"]
-            #reader = csv.reader(csv_file)
-            # Create Hero objects from passed in data
-            # ...
-            #self.message_user(request, "Your csv file has been imported")
+            import_gvz_data(request.FILES["csv_file"].read().decode())
+            self.message_user(request, "Your csv file has been imported")
             return redirect("..")
         form = CsvImportForm()
         payload = {"form": form}
@@ -47,11 +45,8 @@ class ZipCodeAdmin(admin.ModelAdmin):
 
     def import_csv(self, request):
         if request.method == "POST":
-            csv_file = request.FILES["csv_file"]
-            #reader = csv.reader(csv_file)
-            # Create Hero objects from passed in data
-            # ...
-            #self.message_user(request, "Your csv file has been imported")
+            import_zip_data(request.FILES["csv_file"])
+            self.message_user(request, "Your csv file has been imported")
             return redirect("..")
         form = CsvImportForm()
         payload = {"form": form}
