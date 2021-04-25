@@ -94,7 +94,6 @@ def import_zip_data(csv_file):
     reader = csv.reader(csv_file.splitlines(), delimiter=',')
     next(reader)
     for row in reader:
-        print(row)
         ad_di = AdministrativeDivision.objects.filter(ags=row[1]).first()
         if ad_di:
             zip_code = ZipCode.objects.get_or_create(
