@@ -1,13 +1,22 @@
+"""
+Import helper functions for CSV files
+"""
+
 import csv
 from .models import AdministrativeDivision, ZipCode
 
 def generate_ags_id(row):
+    """
+    Concatenate id columns to the AGS ID.
+    """
     if row[0] == "50":
         return "{}{}{}{}".format(row[2], row[3], row[4], row[5])
-    else:
-        return "{}{}{}{}".format(row[2], row[3], row[4], row[6])
+    return "{}{}{}{}".format(row[2], row[3], row[4], row[6])
 
 def generate_parent_ags(row):
+    """
+    Calculate the parent AGS ID for a given row
+    """
     if row[3] == "":
         return None
     if row[4] == "":
@@ -21,10 +30,11 @@ def generate_parent_ags(row):
     return "{}{}{}{}".format(row[2], row[3], row[4], row[5])
 
 def import_gvz_data(csv_file):
-    reader = csv.reader(csv_file.splitlines(), delimiter=';')
-    next(reader) # skip header
-    for row in reader:
-        print(row)
+    """
+    Import "Gemeindeverzeichnis" CSV file. This is the Excel file provided by
+    destatis.de where the header lines are reduced to one row.
+
+    Columns:
         # 0 Satzart
         # 1 Textkennzeichen
         # 2 Land
@@ -45,6 +55,10 @@ def import_gvz_data(csv_file):
         # 17 Reisegebietbezeichnung
         # 18 Besiedlung Schlüssel
         # 19 Besiedlung Bezeichnung
+    """
+    reader = csv.reader(csv_file.splitlines(), delimiter=';')
+    next(reader) # skip header
+    for row in reader:
         ags = generate_ags_id(row)
         ad_di = AdministrativeDivision.objects.get_or_create(ags=ags)[0]
         ad_di.name = row[7]
@@ -61,8 +75,10 @@ def import_gvz_data(csv_file):
         ad_di.area = float(row[8].replace(',', '.')) if row[8] else None
         ad_di.citizens_total = int(row[9].replace(' ', '')) if row[9] else None
         ad_di.citizens_female = int(row[10].replace(' ', '')) if row[10] else None
-        ad_di.citizens_male = int(row[11].replace (' ', '')) if row[11] else None
-        ad_di.population_density = float(row[12].replace(',', '.').replace(' ', '')) if row[12] else None
+        ad_di.citizens_male = int(
+            row[11].replace(' ', '')) if row[11] else None
+        ad_di.population_density = float(
+            row[12].replace(',', '.').replace(' ', '')) if row[12] else None
         ad_di.longitude = float(row[14].replace(',', '.').replace(' ', '')) if row[14] else None
         ad_di.latitude = float(row[15].replace(',', '.').replace(' ', '')) if row[15] else None
         ad_di.travel_code = row[16] if row[16] else None
@@ -70,6 +86,17 @@ def import_gvz_data(csv_file):
         ad_di.save()
 
 def import_zip_data(csv_file):
-    reader = csv.reader(csv_file, delimiter=',')
+    """
+    Import zip codes from a CSV file provided by https://www.suche-postleitzahl.org/downloads
+
+    Columns: osm_id,ags,ort,plz,landkreis,bundesland
+    """
+    reader = csv.reader(csv_file.splitlines(), delimiter=',')
+    next(reader)
     for row in reader:
-        pass
+        print(row)
+        ad_di = AdministrativeDivision.objects.filter(ags=row[1]).first()
+        if ad_di:
+            zip_code = ZipCode.objects.get_or_create(
+                zip_code=int(row[3]), administrative_division=ad_di)[0]
+            zip_code.save()

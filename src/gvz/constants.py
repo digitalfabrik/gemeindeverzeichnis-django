@@ -54,6 +54,15 @@ MP_UNASSOCIATED_AREA_UNINHABITED = 66
 # große Kreisstadt
 MP_LARGE_CITY = 67
 
+DIVISION_CATEGORIES = [
+    (STATE, 'Bundesland'),
+    (ADMINISTRATIVE_DISTRICT, 'Regierungsbezirk'),
+    (REGION, 'Region'),
+    (CT_ABSTRACT, 'Kreis'),
+    (MU_UNASSOCIATED_MUNICIPALITY, 'Gemeindeverband'),
+    (MP_MARKET, 'Gemeinde'),
+]
+
 ADMINISTRATIVE_TYPES = [
     (STATE, 'Bundesland'),
     (ADMINISTRATIVE_DISTRICT, 'Regierungsbezirk'),

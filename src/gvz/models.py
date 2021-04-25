@@ -1,9 +1,12 @@
 """
 Model for municipalities and zip codes
 """
+# pylint: disable=R0903
+
 from django.db import models
 
-from .constants import ADMINISTRATIVE_TYPES
+from .constants import DIVISION_CATEGORIES, ADMINISTRATIVE_TYPES
+
 
 class AdministrativeDivision(models.Model):
     """
@@ -11,10 +14,11 @@ class AdministrativeDivision(models.Model):
     """
     ags = models.CharField(unique=True, max_length=9)
     name = models.CharField(max_length=255, blank=True)
-    parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE)
-    division_category = models.IntegerField(blank=True, null=True)
+    parent = models.ForeignKey('self', blank=True, null=True,
+                               on_delete=models.CASCADE, related_name="children")
+    division_category = models.IntegerField(blank=True, null=True, choices=DIVISION_CATEGORIES)
     division_type = models.CharField(max_length=64, choices=ADMINISTRATIVE_TYPES)
-    office_zip = models.IntegerField(blank=True, null=True)
+    office_zip = models.CharField(max_length=5, blank=True, null=True)
     office_street = models.CharField(max_length=255, blank=True, null=True)
     office_city = models.CharField(max_length=255, blank=True, null=True)
     area = models.FloatField(blank=True, null=True)
@@ -28,15 +32,24 @@ class AdministrativeDivision(models.Model):
     travel_name = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
-        #if self.parent:
-        #    return str(self.parent) + " > (" + self.ags + ") " + self.name
-        return self.name + " (AGS: " + self.ags + " " + self.get_division_type_display() + ") "
-
+        return (self.name + " (AGS: " + self.ags + ", Kategorie: " +
+                self.get_division_category_display() + ") ")
 
 
 class ZipCode(models.Model):
     """
     zip codes for administrative divisions
     """
-    zip_code = models.IntegerField()
-    administrative_division = models.ForeignKey(AdministrativeDivision, on_delete=models.CASCADE)
+    zip_code = models.CharField(max_length=5)
+    administrative_division = models.ForeignKey(AdministrativeDivision,
+                                                on_delete=models.CASCADE,
+                                                related_name="zip_codes")
+
+    class Meta:
+        """
+        Django model meta information
+        """
+        unique_together = ('zip_code', 'administrative_division',)
+
+    def __str__(self):
+        return str(self.zip_code) + ": " + str(self.administrative_division)
