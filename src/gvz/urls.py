@@ -23,7 +23,7 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
                   'division_type', 'office_zip', 'office_street', 'office_city',
                   'area', 'citizens_total', 'citizens_male', 'citizens_female',
                   'population_density', 'longitude', 'latitude', 'travel_name',
-                  'travel_code', 'all_zip_codes']
+                  'travel_code', 'zip_codes']
 
 class AdministrativeDivisionViewSet(viewsets.ModelViewSet):
     """
