@@ -20,9 +20,9 @@ def get_parent_division(row):
     This match is then expected to be the correct parent.
     """
     index = 5
-    for number in range(5, 1, -1):
+    for number in range(6, 1, -1):
         if row[number] != "":
-            index = number - 1
+            index = number
             row[number] = ""
             break
     while index >= 2:
@@ -76,9 +76,9 @@ def import_gvz_data(csv_file):
             ad_di.parent = parent_ags
         else:
             ad_di.parent = None
-        ad_di.office_zip = int(row[13]) if row[13] else None
-        ad_di.office_street = ""
-        ad_di.office_city = ""
+        ad_di.office_zip = row[13] if row[13] else None
+        ad_di.office_street = None
+        ad_di.office_city = None
         ad_di.area = float(row[8].replace(',', '.')) if row[8] else None
         ad_di.citizens_total = int(row[9].replace(' ', '')) if row[9] else None
         ad_di.citizens_female = int(row[10].replace(' ', '')) if row[10] else None

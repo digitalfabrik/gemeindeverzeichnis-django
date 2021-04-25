@@ -6,6 +6,7 @@ Map of GVZ URLs to views
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from .models import AdministrativeDivision, ZipCode
 from .views import index
@@ -32,8 +33,9 @@ class AdministrativeDivisionViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = AdministrativeDivision.objects.all()
     serializer_class = AdministrativeDivisionSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter,]
     filterset_fields = ['ags', 'name', 'parent', 'division_type', 'division_category']
+    search_fields = ['name', 'zip_codes_objects__zip_code']
 
 class ZipCodeSerializer(serializers.HyperlinkedModelSerializer):
     """
