@@ -56,35 +56,35 @@ Folgende Felder können zum Filtern genutzt werden:
 
 ## Kennzeichen für regionale Einheiten und Kategorien
 ### Kategorien (Destatis Satzart)
-10=Land
-20=Regierungsbezirk
-30=Region (nur in Baden-Württemberg)
-40=Kreis
-50=Gemeindeverband
-60=Gemeinde
+* 10=Land
+* 20=Regierungsbezirk
+* 30=Region (nur in Baden-Württemberg)
+* 40=Kreis
+* 50=Gemeindeverband
+* 60=Gemeinde
 
 ### regionale Einheiten (Destatis Textkennzeichen)
-41=Kreisfreie Stadt
-42=Stadtkreis (nur in Baden-Württemberg)
-43=Kreis
-44=Landkreis
-45=Regionalverband (nur im Saarland)
-50=Verbandsfreie Gemeinde
-51=Amt
-52=Samtgemeinde
-53=Verbandsgemeinde
-54=Verwaltungsgemeinschaft
-55=Kirchspielslandgemeinde
-56=Verwaltungsverband
-58=Erfüllende Gemeinde
-60=Markt
-61=Kreisfreie Stadt
-62=Stadtkreis (nur in Baden-Württemberg)
-63=Stadt
-64=Kreisangehörige Gemeinde
-65=gemeindefreies Gebiet-bewohnt
-66=gemeindefreies Gebiet-unbewohnt
-67=Große Kreisstadt
+* 41=Kreisfreie Stadt
+* 42=Stadtkreis (nur in Baden-Württemberg)
+* 43=Kreis
+* 44=Landkreis
+* 45=Regionalverband (nur im Saarland)
+* 50=Verbandsfreie Gemeinde
+* 51=Amt
+* 52=Samtgemeinde
+* 53=Verbandsgemeinde
+* 54=Verwaltungsgemeinschaft
+* 55=Kirchspielslandgemeinde
+* 56=Verwaltungsverband
+* 58=Erfüllende Gemeinde
+* 60=Markt
+* 61=Kreisfreie Stadt
+* 62=Stadtkreis (nur in Baden-Württemberg)
+* 63=Stadt
+* 64=Kreisangehörige Gemeinde
+* 65=gemeindefreies Gebiet-bewohnt
+* 66=gemeindefreies Gebiet-unbewohnt
+* 67=Große Kreisstadt
 
 # Lizenz
 Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert.
