@@ -65,15 +65,17 @@ def import_gvz_data(csv_file):
     next(reader) # skip header
     for row in reader:
         ags = generate_ags_id(row)
-        ad_di = AdministrativeDivision.objects.get_or_create(ags=ags)[0]
+        ad_di = AdministrativeDivision.objects.get_or_create(
+            ags=ags,
+            division_category=int(row[0]),
+            division_type=int(row[1]) if row[1] != "" else int(row[0])
+        )[0]
         ad_di.name = row[7]
         parent_ags = get_parent_division(row)
         if parent_ags:
             ad_di.parent = parent_ags
         else:
             ad_di.parent = None
-        ad_di.division_category = int(row[0])
-        ad_di.division_type = int(row[1]) if row[1] != "" else int(row[0])
         ad_di.office_zip = int(row[13]) if row[13] else None
         ad_di.office_street = ""
         ad_di.office_city = ""
