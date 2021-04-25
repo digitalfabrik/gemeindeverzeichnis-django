@@ -19,9 +19,11 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
         Define serialized fields
         """
         model = AdministrativeDivision
-        # fields = '__all__'
-        fields = ['ags', 'name', 'parent', 'children', 'division_category', 'division_type', 'office_zip', 'office_street', 'office_city',
-                  'area', 'citizens_total', 'citizens_male', 'citizens_female', 'population_density', 'longitude', 'latitude', 'travel_name', 'travel_code']
+        fields = ['ags', 'name', 'parent', 'children', 'division_category',
+                  'division_type', 'office_zip', 'office_street', 'office_city',
+                  'area', 'citizens_total', 'citizens_male', 'citizens_female',
+                  'population_density', 'longitude', 'latitude', 'travel_name',
+                  'travel_code', 'zip_codes']
 
 class AdministrativeDivisionViewSet(viewsets.ModelViewSet):
     """
@@ -30,7 +32,7 @@ class AdministrativeDivisionViewSet(viewsets.ModelViewSet):
     queryset = AdministrativeDivision.objects.all()
     serializer_class = AdministrativeDivisionSerializer
     filter_backends = [DjangoFilterBackend]
-    #filterset_fields = ['ags', 'name', 'parent', 'division_type', 'division_category']
+    filterset_fields = ['ags', 'name', 'parent', 'division_type', 'division_category']
 
 class ZipCodeSerializer(serializers.HyperlinkedModelSerializer):
     """
@@ -41,7 +43,9 @@ class ZipCodeSerializer(serializers.HyperlinkedModelSerializer):
         Define serialized fields
         """
         model = ZipCode
-        fields = '__all__'
+        fields = ['zip_code', 'administrative_division']
+        filter_backends = [DjangoFilterBackend]
+        filterset_fields = ['zip_code', 'administrative_division']
 
 class ZipCodeViewSet(viewsets.ModelViewSet):
     """
