@@ -8,3 +8,4 @@ In diesem Verzeichnis sind die hierarchischen Informationen erhalten.
 * [Zuordnung Postleitzahlen und Landkreise](https://www.suche-postleitzahl.org/download_files/public/zuordnung_plz_ort_landkreis.csv)
 
 # Lizenz
+Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert.
