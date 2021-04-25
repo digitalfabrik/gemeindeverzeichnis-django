@@ -20,12 +20,12 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
         Define serialized fields
         """
         model = AdministrativeDivision
-        fields = ['ags', 'name', 'parent', 'division_category',
+        fields = ['id', 'ags', 'name', 'division_category',
                   'division_category_name', 'division_type', 'division_type_name',
                   'office_zip', 'office_street', 'office_city',
                   'area', 'citizens_total', 'citizens_male', 'citizens_female',
                   'population_density', 'longitude', 'latitude', 'travel_name',
-                  'travel_code', 'children', 'zip_codes']
+                  'travel_code', 'url', 'parent', 'children', 'zip_codes']
 
 class AdministrativeDivisionViewSet(viewsets.ReadOnlyModelViewSet):
     """
