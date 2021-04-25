@@ -24,13 +24,13 @@ Um beispielsweise nur Objekte der Kategorie Bundesland anzuzeigen, kann folgende
 * [https://gvz.tuerantuer.org/api/administrative_divisions/?division_category=10](https://gvz.tuerantuer.org/api/administrative_divisions/?division_category=10)
 
 ## Felder
-* `id`: Datenbank-ID
+* `id`: Datenbank-ID, findet Verwendung in Pfaden zu Objekten
 * `ags`: offizieller Gemeindeschlüssel
 * `name`: Name der Gemeinde, Kreis, Land, etc
 * `division_category`: Kategorie-ID (Bundesland, Regierungsbezirk, Region, Kreis, Gemeindeverband, Gemeinde)
-* `division_category_name`: Kategorie-Name
-* `division_type`: Offizieller Kennziffer/Bezeichner für die administrative Einheit (Markt, Samtgemeinde, etc)
-* `division_type_name`: Bezeichnung des Typs der administrativen Einheit
+* `division_category_name`: Kategorie-Name der regionalen Einheit
+* `division_type`: Offizieller Kennziffer/Bezeichner für die regionale Einheit (Markt, Samtgemeinde, etc)
+* `division_type_name`: Bezeichnung des Typs der regionale Einheit
 * `office_zip`: Postleitzahl der Anschrift
 * `office_street`: Straße der Anschrift
 * `office_city`: Stadt der Anschrift
@@ -48,11 +48,43 @@ Um beispielsweise nur Objekte der Kategorie Bundesland anzuzeigen, kann folgende
 * `children`: Liste der Pfade zu untergeordneten Objekten
 * `zip_codes`: Liste aller untergeordneter Postleitzahlen
 
-Folgende Kategorien können zum Filtern genutzt werden:
+Folgende Felder können zum Filtern genutzt werden:
 * Gemeindeschlüssel
 * Administrative Kategorie (Bundesland (`10`), Regierungsbezirk (`20`), Region (`30`), Kreis (`40`), Gemeindeverband (`50`), Gemeinde (`60`))
 * Name
-* Übergeordnete administrative Einheit ID
+* Datenbank-ID der Übergeordneten regionale Einheit
+
+## Kennzeichen für regionale Einheiten und Kategorien
+### Kategorien (Destatis Satzart)
+10=Land
+20=Regierungsbezirk
+30=Region (nur in Baden-Württemberg)
+40=Kreis
+50=Gemeindeverband
+60=Gemeinde
+
+### regionale Einheiten (Destatis Textkennzeichen)
+41=Kreisfreie Stadt
+42=Stadtkreis (nur in Baden-Württemberg)
+43=Kreis
+44=Landkreis
+45=Regionalverband (nur im Saarland)
+50=Verbandsfreie Gemeinde
+51=Amt
+52=Samtgemeinde
+53=Verbandsgemeinde
+54=Verwaltungsgemeinschaft
+55=Kirchspielslandgemeinde
+56=Verwaltungsverband
+58=Erfüllende Gemeinde
+60=Markt
+61=Kreisfreie Stadt
+62=Stadtkreis (nur in Baden-Württemberg)
+63=Stadt
+64=Kreisangehörige Gemeinde
+65=gemeindefreies Gebiet-bewohnt
+66=gemeindefreies Gebiet-unbewohnt
+67=Große Kreisstadt
 
 # Lizenz
 Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert.
