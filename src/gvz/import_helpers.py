@@ -13,21 +13,26 @@ def generate_ags_id(row):
         return "{}{}{}{}".format(row[2], row[3], row[4], row[5])
     return "{}{}{}{}".format(row[2], row[3], row[4], row[6])
 
-def generate_parent_ags(row):
+def get_parent_division(row):
     """
-    Calculate the parent AGS ID for a given row
+    Calculate the parent AGS ID for a given row. Set the last AGS column to empty string.
+    Repeat setting the last AGS columnt to empty string, until it matches an existing entry.
+    This match is then expected to be the correct parent.
     """
-    if row[3] == "":
-        return None
-    if row[4] == "":
-        return "{}".format(row[2])
-    if row[5] == "" and row[3] == "0":
-        return row[2]
-    if row[5] == "":
-        return "{}{}{}".format(row[2], row[3], row[4])
-    if row[6] == "":
-        return "{}{}{}".format(row[2], row[3], row[4])
-    return "{}{}{}{}".format(row[2], row[3], row[4], row[5])
+    index = 5
+    for number in range(5, 1, -1):
+        if row[number] != "":
+            index = number - 1
+            row[number] = ""
+            break
+    while index >= 2:
+        ags = "{}{}{}{}".format(row[2], row[3], row[4], row[5])
+        parent = AdministrativeDivision.objects.filter(ags=ags).first()
+        if parent:
+            return parent
+        row[index] = ""
+        index = index - 1
+    return None
 
 def import_gvz_data(csv_file):
     """
@@ -62,13 +67,13 @@ def import_gvz_data(csv_file):
         ags = generate_ags_id(row)
         ad_di = AdministrativeDivision.objects.get_or_create(ags=ags)[0]
         ad_di.name = row[7]
-        parent_ags = generate_parent_ags(row)
+        parent_ags = get_parent_division(row)
         if parent_ags:
-            ad_di.parent = AdministrativeDivision.objects.filter(ags=parent_ags).first()
+            ad_di.parent = parent_ags
         else:
             ad_di.parent = None
         ad_di.division_category = row[0]
-        ad_di.division_type = row[1]
+        ad_di.division_type = row[1] if row[1] != "" else row[0]
         ad_di.office_zip = int(row[13]) if row[13] else None
         ad_di.office_street = ""
         ad_di.office_city = ""
@@ -97,5 +102,5 @@ def import_zip_data(csv_file):
         ad_di = AdministrativeDivision.objects.filter(ags=row[1]).first()
         if ad_di:
             zip_code = ZipCode.objects.get_or_create(
-                zip_code=int(row[3]), administrative_division=ad_di)[0]
+                zip_code=row[3], administrative_division=ad_di)[0]
             zip_code.save()

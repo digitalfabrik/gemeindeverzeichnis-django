@@ -44,8 +44,11 @@ class AdministrativeDivision(models.Model):
 
 
     def __str__(self):
+        category = self.get_division_category_display()
+        if category is None:
+            category = ""
         return (self.name + " (AGS: " + self.ags + ", Kategorie: " +
-                self.get_division_category_display() + ") ")
+                category + ") ")
 
     @property
     def zip_codes(self):

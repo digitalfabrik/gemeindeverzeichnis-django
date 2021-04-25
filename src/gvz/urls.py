@@ -25,7 +25,7 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
                   'population_density', 'longitude', 'latitude', 'travel_name',
                   'travel_code', 'zip_codes']
 
-class AdministrativeDivisionViewSet(viewsets.ModelViewSet):
+class AdministrativeDivisionViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Define AdministrativeDivision view set (return all)
     """
@@ -47,7 +47,7 @@ class ZipCodeSerializer(serializers.HyperlinkedModelSerializer):
         filter_backends = [DjangoFilterBackend]
         filterset_fields = ['zip_code', 'administrative_division']
 
-class ZipCodeViewSet(viewsets.ModelViewSet):
+class ZipCodeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Define ZipCode view set (return all)
     """
