@@ -72,8 +72,8 @@ def import_gvz_data(csv_file):
             ad_di.parent = parent_ags
         else:
             ad_di.parent = None
-        ad_di.division_category = row[0]
-        ad_di.division_type = row[1] if row[1] != "" else row[0]
+        ad_di.division_category = int(row[0])
+        ad_di.division_type = int(row[1]) if row[1] != "" else int(row[0])
         ad_di.office_zip = int(row[13]) if row[13] else None
         ad_di.office_street = ""
         ad_di.office_city = ""

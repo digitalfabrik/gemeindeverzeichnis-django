@@ -16,8 +16,8 @@ class AdministrativeDivision(models.Model):
     name = models.CharField(max_length=255, blank=True)
     parent = models.ForeignKey('self', blank=True, null=True,
                                on_delete=models.CASCADE, related_name="children")
-    division_category = models.IntegerField(blank=True, null=True, choices=DIVISION_CATEGORIES)
-    division_type = models.CharField(max_length=64, choices=ADMINISTRATIVE_TYPES)
+    division_category = models.IntegerField(choices=DIVISION_CATEGORIES)
+    division_type = models.IntegerField(choices=ADMINISTRATIVE_TYPES)
     office_zip = models.CharField(max_length=5, blank=True, null=True)
     office_street = models.CharField(max_length=255, blank=True, null=True)
     office_city = models.CharField(max_length=255, blank=True, null=True)
@@ -42,7 +42,6 @@ class AdministrativeDivision(models.Model):
             models.Index(fields=['name',]),
         ]
 
-
     def __str__(self):
         category = self.get_division_category_display()
         if category is None:
@@ -55,7 +54,27 @@ class AdministrativeDivision(models.Model):
         """
         Return zip codes
         """
-        return [item.zip_code for item in ZipCode.objects.filter(administrative_division=self)]
+        zip_codes = []
+        for child in AdministrativeDivision.objects.filter(parent=self):
+            zip_codes = zip_codes + child.zip_codes
+        zip_codes = (zip_codes +
+                     [item.zip_code for item in
+                      ZipCode.objects.filter(administrative_division=self)])
+        return zip_codes
+
+    @property
+    def division_category_name(self):
+        """
+        Return display name of division category
+        """
+        return self.get_division_category_display()
+
+    @property
+    def division_type_name(self):
+        """
+        Return display name of division type
+        """
+        return self.get_division_type_display()
 
 class ZipCode(models.Model):
     """
