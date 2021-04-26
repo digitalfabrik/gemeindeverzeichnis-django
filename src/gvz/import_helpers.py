@@ -1,8 +1,12 @@
 """
-Import helper functions for CSV files
+Import helper functions for CSV files and statistikportal.de crawler
 """
 
+from io import StringIO
 import csv
+import requests
+from lxml import etree
+
 from .models import AdministrativeDivision, ZipCode
 
 def generate_ags_id(row):
@@ -106,3 +110,30 @@ def import_zip_data(csv_file):
             zip_code = ZipCode.objects.get_or_create(
                 zip_code=row[3], administrative_division=ad_di)[0]
             zip_code.save()
+
+def crawl_contact_address(ags):
+    """
+    Send request to statistikportal.de
+    """
+    url = 'https://www.statistikportal.de/de/gemeindeverzeichnis?ajax_form=1&_wrapper_format=drupal_ajax'
+    payload = {'mi_search': str(ags), 'form_id': 'municipality_index_search'}
+    response = requests.post(url, data=payload).json()
+    html = response[0]["data"]
+    parser = etree.HTMLParser()
+    tree = etree.parse(StringIO(html), parser)
+    previous = ""
+    result = {"office_zip": "", "office_street": "", "office_city": "", "office_name": ""}
+
+    for item in tree.findall('.//div'):
+        text = item.text.strip(' \t\n\r')
+        if text != "":
+            if previous == "Anschrift der Gemeinde":
+                result["office_name"] = text
+            elif previous == "Straße":
+                result["office_street"] = text
+            elif previous == "Ort":
+                str_list = list(filter(None, text.split(" ")))
+                result["office_zip"] = str_list[0]
+                result["office_city"] = str_list[1]
+            previous = text
+    return result

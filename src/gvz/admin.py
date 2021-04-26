@@ -3,13 +3,14 @@ Django admin back end
 """
 # pylint: disable=R0903
 
+from django.db.models import Q
 from django.contrib import admin
 from django import forms
 from django.shortcuts import render, redirect
 from django.urls import path
 
 from .models import AdministrativeDivision, ZipCode
-from .import_helpers import import_gvz_data, import_zip_data
+from .import_helpers import import_gvz_data, import_zip_data, crawl_contact_address
 
 class CsvImportForm(forms.Form):
     """
@@ -31,6 +32,7 @@ class AdministrativeDivisionAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path('import-csv/', self.import_csv),
+            path('crawl-contact-addresses/', self.crawl_contact_addresses)
         ]
         return my_urls + urls
 
@@ -48,6 +50,24 @@ class AdministrativeDivisionAdmin(admin.ModelAdmin):
             request, "admin/csv_form.html", payload
         )
 
+    def crawl_contact_addresses(self, request):
+        """
+        Contact statisticportal.de API and extract contact information
+        """
+        payload = {"updated": []}
+        divisions = AdministrativeDivision.objects.filter(
+            (Q(office_street=None) | Q(office_city=None) | Q(office_zip=None)) &
+            Q(division_type=60))
+        for division in divisions[:100]:
+            result = crawl_contact_address(division.ags)
+            division.office_street = result["office_street"]
+            division.office_city = result["office_city"]
+            division.office_name = result["office_name"]
+            division.save()
+            payload["updated"].append(division.ags)
+        return render(
+            request, "admin/crawled_list.html", payload
+        )
 
 @admin.register(ZipCode)
 class ZipCodeAdmin(admin.ModelAdmin):

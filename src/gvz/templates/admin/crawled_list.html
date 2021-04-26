@@ -1,0 +1,10 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+
+<ul>
+{% for item in updated %}
+<li>{{item}}</li>
+{% endfor %}
+</ul>
+{% endblock %}

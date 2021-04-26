@@ -21,7 +21,7 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
         """
         model = AdministrativeDivision
         fields = ['id', 'ags', 'name', 'division_category', 'division_category_name',
-                  'division_type', 'division_type_name', 'office_zip',
+                  'division_type', 'division_type_name', 'office_name', 'office_zip',
                   'office_street', 'office_city', 'area', 'citizens_total',
                   'citizens_male', 'citizens_female', 'population_density',
                   'area_accumulated', 'citizens_accumulated', 'longitude', 'latitude',

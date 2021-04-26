@@ -18,6 +18,7 @@ class AdministrativeDivision(models.Model):
                                on_delete=models.CASCADE, related_name="children")
     division_category = models.IntegerField(choices=DIVISION_CATEGORIES)
     division_type = models.IntegerField(choices=ADMINISTRATIVE_TYPES)
+    office_name = models.CharField(max_length=128, blank=True, null=True)
     office_zip = models.CharField(max_length=5, blank=True, null=True)
     office_street = models.CharField(max_length=255, blank=True, null=True)
     office_city = models.CharField(max_length=255, blank=True, null=True)

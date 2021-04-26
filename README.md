@@ -33,6 +33,7 @@ Um beispielsweise nur Objekte der Kategorie Bundesland anzuzeigen, kann folgende
 * `division_category_name`: Kategorie-Name der regionalen Einheit
 * `division_type`: Offizieller Kennziffer/Bezeichner für die regionale Einheit (Markt, Samtgemeinde, etc)
 * `division_type_name`: Bezeichnung des Typs der regionale Einheit
+* `office_name`: Anschrift (Name)
 * `office_zip`: Postleitzahl der Anschrift
 * `office_street`: Straße der Anschrift
 * `office_city`: Stadt der Anschrift
