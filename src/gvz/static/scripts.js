@@ -49,14 +49,36 @@ function details( key ) {
         "<thead><tr><th scope='col' colspan='2'><h4 class='text-center'>"+data['name']+"</h4></th></tr></thead>" +
         "<tr><th scope='row'>Gemeindeschl&uuml;ssel</th><td>"+data['ags']+"</td></tr>" +
         "<tr><th scope='row'>Gemeindetyp</th><td>"+data['division_type_name']+"</td></tr>" +
-        "<tr><th scope='row'>Anschrift</th><td>"+data['office_zip']+"</td></tr>" +
+        "<tr><th scope='row'>Anschrift</th><td>"+data['office_name']+", "+data['office_street']+", "+data['office_city']+", "+data['office_zip']+"</td></tr>" +
         "<tr><th scope='row'>L&auml;ngengrad</th><td>"+data['longitude']+"</td></tr>" +
         "<tr><th scope='row'>Breitengrad</th><td>"+data['latitude']+"</td></tr>" +
         "<tr><th scope='row'>Bevölkerung gesamt</th><td>"+data['citizens_accumulated']["total"]+"</td></tr>" +
         "<tr><th scope='row'>Bevölkerung weiblich</th><td>"+data['citizens_accumulated']["female"]+"</td></tr>" +
-        "<tr><th scope='row'>Bevölkerung männlich</th><td>"+data['citizens_accumulated']["female"]+"</td></tr>" +
-        "<tr><th scope='row'>Bevölkerung männlich</th><td>"+data['area_accumulated']+"</td></tr>" +
+        "<tr><th scope='row'>Bevölkerung männlich</th><td>"+data['citizens_accumulated']["male"]+"</td></tr>" +
+        "<tr><th scope='row'>Fläche</th><td>"+data['area_accumulated']+"</td></tr>" +
+        "<tr><th scope='row'>Übergeordnete Einheit</th><td><span id='parent-division'>wird berechnet...</span></td></tr>" +
+        "<tr><th scope='row'>Untergeordnete Einheiten</th><td><span id='child-divisions'>wird berechnet...</span></td></tr>" +
+        "<tr><th scope='row'>Postleitzahlen</th><td>"+data['zip_codes'].join(', ')+"</td></tr>" +
         "</table>";
         $("#result").html(searchhtml);
+        get_parent(data["parent"]);
+        get_children(data["id"]);
+    });
+}
+
+function get_parent( url ) {
+    $.get(url, function(data, status){
+        $("#parent-division").html("<a href='/details/"+data["id"]+"'>"+data["name"]+" ("+data["division_type_name"]+")</a>");
+    });
+}
+
+function get_children( parent_id ) {
+    $.get("/api/administrative_divisions/?parent="+parent_id, function(data, status){
+        if(data["count"] == 0) { $("#child-divisions").html("keine"); }
+        var children_list = "";
+        for (item of data["results"]) {
+            children_list = children_list + "<a href='/details/"+item["id"]+"'>"+item["name"]+" ("+item["division_type_name"]+")</a><br>";
+        }
+        $("#child-divisions").html(children_list);
     });
 }
