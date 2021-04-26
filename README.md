@@ -1,7 +1,9 @@
 # Digitalfabrik Gemeindeverzeichnis
-Dies ist ein Dienst, welcher in einer API die Informationen aus dem Gemeindeverzeichnis in einer API bereitstellt. Zusätzlich werden die Gemeindedaten mit Postleitzahlen angereichert.
+Dies ist ein Dienst, welcher in einer API die Informationen aus dem Gemeindeverzeichnis des statistischen Bundesamts in einer API bereitstellt. Zusätzlich werden die Gemeindedaten mit Postleitzahlen aus [suche-postleitzahl.org](https://suche-postleitzahl.org) angreichert.
 
-In diesem Verzeichnis sind die hierarchischen Informationen erhalten.
+In diesem Verzeichnis sind die hierarchischen Informationen erhalten. Die Bevölkerung, Fläche und Postleitzahlen werden aus untergeordneten Einheitena aufsummiert.
+
+Das Verzeichnis ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar.
 
 # Quellen
 * [Excel Datei des Gemeindeverzeichnis](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html)
@@ -89,4 +91,4 @@ Folgende Felder können zum Filtern genutzt werden:
 * 67=Große Kreisstadt
 
 # Lizenz
-Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert.
+Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert. Bootstrap und jQuery stehen unter der MIT Lizenz.

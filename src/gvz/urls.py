@@ -3,7 +3,7 @@ Map of GVZ URLs to views
 """
 # pylint: disable=R0903
 
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import routers, serializers, viewsets
 from rest_framework import filters
@@ -63,5 +63,6 @@ router.register(r'zip_codes', ZipCodeViewSet)
 
 urlpatterns = [  # pylint: disable=C0103
     path('', index),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    re_path(r'^.*$', index)
 ]
