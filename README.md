@@ -1,13 +1,14 @@
 # Digitalfabrik Gemeindeverzeichnis
-Dies ist ein Dienst, welcher in einer API die Informationen aus dem [Gemeindeverzeichnis des statistischen Bundesamts](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html) in einer API bereitstellt. Zusätzlich werden die Gemeindedaten mit Postleitzahlen aus [suche-postleitzahl.org](https://suche-postleitzahl.org) angreichert.
+Dieser Dienst stellt Informationen aus dem [Gemeindeverzeichnis des statistischen Bundesamts](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html) in einer grafischen Oberfläche sowie API bereit. Zusätzlich werden die Gemeindedaten mit Postleitzahlen aus [suche-postleitzahl.org](https://suche-postleitzahl.org) angreichert.
 
-In diesem Verzeichnis sind die hierarchischen Informationen erhalten. Die Bevölkerung, Fläche und Postleitzahlen werden aus untergeordneten Einheiten zusammengeführt.
+In diesem Verzeichnis sind die hierarchischen Informationen enthalten. Bevölkerungzahl, Fläche und Postleitzahlen werden aus untergeordneten Einheiten zusammengeführt.
 
-Eine vereinfachte Version des Verzeichnisses ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar. Über die grafische [API](#api-dokumentation) stehen alle Informationen zur Verfügung.
+Eine einfache grafische Oberfläche des Verzeichnisses ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar. Über die grafische [API](#api-dokumentation) stehen alle Informationen zur Verfügung.
 
 # Quellen
 * [Excel Datei des Gemeindeverzeichnis](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html)
 * [Zuordnung Postleitzahlen und Landkreise](https://www.suche-postleitzahl.org/download_files/public/zuordnung_plz_ort_landkreis.csv)
+* [Anschriften der Gemeinden](https://www.statistikportal.de/de/gemeindeverzeichnis)
 
 # API Dokumentation
 Die [API](https://gvz.tuerantuer.org/api/) kann direkt im Browser durchsucht werden. Es gibt zwei verschiedene Models, die durchsucht werden können:
