@@ -91,5 +91,13 @@ Folgende Felder können zum Filtern genutzt werden:
 * 66=gemeindefreies Gebiet-unbewohnt
 * 67=Große Kreisstadt
 
+# Installation
+1. Repository klonen
+2. `src/core/settings.py` anpassen (`DEBUG` und `DATABASES`)
+3. `install.sh` ausführen (erstellt virtual environment, führt Datenbank-Migration aus)
+4. `./src/manage.py createsuperuser` ausführen, um Admin-Account zu erstellen
+5. Apache2 mit `mod_wsgi` installieren oder `./src/manage.py runserver` ausführen
+6. Im Back End unter "administrative divisions" und "zip codes" CSV Import-Funktionen nutzen
+
 # Lizenz
 Der Quellcode ist [Apache 2.0](LICENSE.txt) lizenziert. Bootstrap und jQuery stehen unter der MIT Lizenz.
