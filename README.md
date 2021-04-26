@@ -3,7 +3,7 @@ Dies ist ein Dienst, welcher in einer API die Informationen aus dem [Gemeindever
 
 In diesem Verzeichnis sind die hierarchischen Informationen erhalten. Die Bevölkerung, Fläche und Postleitzahlen werden aus untergeordneten Einheitena aufsummiert.
 
-Das Verzeichnis ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar.
+Eine vereinfachte Version des Verzeichnisses ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar. Über die grafische [API](#api-dokumentation) stehen alle Informationen zur Verfügung.
 
 # Quellen
 * [Excel Datei des Gemeindeverzeichnis](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html)
