@@ -56,8 +56,8 @@ class AdministrativeDivisionAdmin(admin.ModelAdmin):
         """
         payload = {"updated": []}
         divisions = AdministrativeDivision.objects.filter(
-            (Q(office_street=None) | Q(office_city=None) | Q(office_zip=None)) &
-            Q(division_type=60))
+            (Q(office_street=None) | Q(office_city=None) | Q(office_zip=None)
+             | Q(office_name=None)) & Q(division_type=60))
         for division in divisions:
             result = crawl_contact_address(division.ags)
             division.office_street = result["office_street"]
