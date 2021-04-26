@@ -31,6 +31,7 @@ function setUrl(action, key) {
 function search( term ) {
     $.get("/api/administrative_divisions/?search="+term, function(data, status){
         var searchhtml;
+        $("#result").html("<p>Daten werden geladen, bitte warten ...</p>");
         searchhtml = "<h4 class='text-center'>Ergebnisse</h4><table class='table table-striped' style='width:100%;'>";
         searchhtml = searchhtml + "<thead><tr><th scope='col'>Ort</th><th>Typ</th><th>PLZ</th><th>Link</th></tr></thead>";
         for (item of data["results"]) {
@@ -41,6 +42,7 @@ function search( term ) {
     });
 };
 function details( key ) {
+    $("#result").html("<p>Daten werden geladen, bitte warten ...</p>");
     $.get("/api/administrative_divisions/"+key+"/", function(data, status){
         var searchhtml;
         searchhtml = "<table class='table table-striped' style='width:100%;'>" +
