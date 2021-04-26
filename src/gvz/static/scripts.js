@@ -48,11 +48,14 @@ function details( key ) {
         searchhtml = "<table class='table table-striped' style='width:100%;'>" +
         "<thead><tr><th scope='col' colspan='2'><h4 class='text-center'>"+data['name']+"</h4></th></tr></thead>" +
         "<tr><th scope='row'>Gemeindeschl&uuml;ssel</th><td>"+data['ags']+"</td></tr>" +
-        "<tr><th scope='row'>Gemeindetyp</th><td>"+data['division_type_name']+"</td></tr>" +
-        "<tr><th scope='row'>Anschrift</th><td>"+data['office_name']+", "+data['office_street']+", "+data['office_city']+", "+data['office_zip']+"</td></tr>" +
-        "<tr><th scope='row'>L&auml;ngengrad</th><td>"+data['longitude']+"</td></tr>" +
-        "<tr><th scope='row'>Breitengrad</th><td>"+data['latitude']+"</td></tr>" +
-        "<tr><th scope='row'>Bevölkerung gesamt</th><td>"+data['citizens_accumulated']["total"]+"</td></tr>" +
+        "<tr><th scope='row'>Gemeindetyp</th><td>"+data['division_type_name']+"</td></tr>";
+        if (data["division_category"] == 60 ){
+        searchhtml = searchhtml + 
+            "<tr><th scope='row'>Anschrift</th><td>"+data['office_name']+", "+data['office_street']+", "+data['office_city']+", "+data['office_zip']+"</td></tr>" +
+            "<tr><th scope='row'>L&auml;ngengrad</th><td>"+data['longitude']+"</td></tr>" +
+            "<tr><th scope='row'>Breitengrad</th><td>"+data['latitude']+"</td></tr>";
+        }
+        searchhtml = searchhtml + "<tr><th scope='row'>Bevölkerung gesamt</th><td>"+data['citizens_accumulated']["total"]+"</td></tr>" +
         "<tr><th scope='row'>Bevölkerung weiblich</th><td>"+data['citizens_accumulated']["female"]+"</td></tr>" +
         "<tr><th scope='row'>Bevölkerung männlich</th><td>"+data['citizens_accumulated']["male"]+"</td></tr>" +
         "<tr><th scope='row'>Fläche</th><td>"+data['area_accumulated']+"</td></tr>" +
