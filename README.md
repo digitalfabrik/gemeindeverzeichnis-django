@@ -34,10 +34,12 @@ Um beispielsweise nur Objekte der Kategorie Bundesland anzuzeigen, kann folgende
 * `office_zip`: Postleitzahl der Anschrift
 * `office_street`: Straße der Anschrift
 * `office_city`: Stadt der Anschrift
-* `area`: Fläche in km²
-* `citizens_total`: Einwohner:innen
-* `citizens_male`: männliche Einwohner
-* `citizens_female`: weibliche Einwohnerinnen
+* `area`: Offizielle Angabe Fläche in km²
+* `citizens_total`: Offizielle Angabe Einwohner:innen
+* `citizens_male`: Offizielle Angabe männliche Einwohner
+* `citizens_female`: Offizielle weibliche Einwohnerinnen
+* `area_accumulated`: berechnete Summe der Fläche aller untergeordneten Einheiten
+* `citizens_accumulated`: berechnete Summe der Einwohner:innen der untergeordneten Einheiten
 * `population_density`: Bevölkerungsdichte pro Quadratkilometer
 * `longitude`: Längengrad
 * `latitude`: Breitengrad
@@ -50,7 +52,7 @@ Um beispielsweise nur Objekte der Kategorie Bundesland anzuzeigen, kann folgende
 
 Folgende Felder können zum Filtern genutzt werden:
 * Gemeindeschlüssel
-* Administrative Kategorie (Bundesland (`10`), Regierungsbezirk (`20`), Region (`30`), Kreis (`40`), Gemeindeverband (`50`), Gemeinde (`60`))
+* Kategorie (Ebene) der regionalen Einheit (Land, Regierungsbezirk, Kreis, etc)
 * Name
 * Datenbank-ID der Übergeordneten regionale Einheit
 

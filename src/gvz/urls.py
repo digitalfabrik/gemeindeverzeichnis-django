@@ -4,8 +4,8 @@ Map of GVZ URLs to views
 # pylint: disable=R0903
 
 from django.urls import path, include
-from rest_framework import routers, serializers, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import routers, serializers, viewsets
 from rest_framework import filters
 
 from .models import AdministrativeDivision, ZipCode
@@ -20,12 +20,12 @@ class AdministrativeDivisionSerializer(serializers.HyperlinkedModelSerializer):
         Define serialized fields
         """
         model = AdministrativeDivision
-        fields = ['id', 'ags', 'name', 'division_category',
-                  'division_category_name', 'division_type', 'division_type_name',
-                  'office_zip', 'office_street', 'office_city',
-                  'area', 'citizens_total', 'citizens_male', 'citizens_female',
-                  'population_density', 'longitude', 'latitude', 'travel_name',
-                  'travel_code', 'url', 'parent', 'children', 'zip_codes']
+        fields = ['id', 'ags', 'name', 'division_category', 'division_category_name',
+                  'division_type', 'division_type_name', 'office_zip',
+                  'office_street', 'office_city', 'area', 'citizens_total',
+                  'citizens_male', 'citizens_female', 'population_density',
+                  'area_accumulated', 'citizens_accumulated', 'longitude', 'latitude',
+                  'travel_name', 'travel_code', 'url', 'parent', 'children', 'zip_codes']
 
 class AdministrativeDivisionViewSet(viewsets.ReadOnlyModelViewSet):
     """

@@ -76,6 +76,40 @@ class AdministrativeDivision(models.Model):
         """
         return self.get_division_type_display()
 
+    @property
+    def citizens_accumulated(self):
+        """
+        Sum up population of children
+        """
+        if self.division_category == 60:
+            return {"total": self.citizens_total,
+                    "female": self.citizens_female,
+                    "male": self.citizens_male}
+
+        accumulated = {
+            "total": 0,
+            "female": 0,
+            "male": 0
+        }
+        for child in AdministrativeDivision.objects.filter(parent=self):
+            child_citizens = child.citizens_accumulated
+            accumulated["total"] = accumulated["total"] + child_citizens["total"]
+            accumulated["female"] = accumulated["female"] + child_citizens["female"]
+            accumulated["male"] = accumulated["male"] + child_citizens["male"]
+        return accumulated
+
+    @property
+    def area_accumulated(self):
+        """
+        Sum up area of children
+        """
+        if self.division_category == 60:
+            return self.area
+        accumulated_area = 0
+        for child in AdministrativeDivision.objects.filter(parent=self):
+            accumulated_area = accumulated_area + child.area_accumulated
+        return accumulated_area
+
 class ZipCode(models.Model):
     """
     zip codes for administrative divisions
