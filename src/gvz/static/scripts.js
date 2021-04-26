@@ -67,6 +67,10 @@ function details( key ) {
 }
 
 function get_parent( url ) {
+    if ( url == null ) {
+        $("#parent-division").html("keine");
+        return;
+    }
     $.get(url, function(data, status){
         $("#parent-division").html("<a href='/details/"+data["id"]+"'>"+data["name"]+" ("+data["division_type_name"]+")</a>");
     });
@@ -74,7 +78,10 @@ function get_parent( url ) {
 
 function get_children( parent_id ) {
     $.get("/api/administrative_divisions/?parent="+parent_id, function(data, status){
-        if(data["count"] == 0) { $("#child-divisions").html("keine"); }
+        if(data["count"] == 0) {
+            $("#child-divisions").html("keine");
+            return;
+        }
         var children_list = "";
         for (item of data["results"]) {
             children_list = children_list + "<a href='/details/"+item["id"]+"'>"+item["name"]+" ("+item["division_type_name"]+")</a><br>";
