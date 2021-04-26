@@ -1,7 +1,7 @@
 # Digitalfabrik Gemeindeverzeichnis
 Dies ist ein Dienst, welcher in einer API die Informationen aus dem [Gemeindeverzeichnis des statistischen Bundesamts](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html) in einer API bereitstellt. Zusätzlich werden die Gemeindedaten mit Postleitzahlen aus [suche-postleitzahl.org](https://suche-postleitzahl.org) angreichert.
 
-In diesem Verzeichnis sind die hierarchischen Informationen erhalten. Die Bevölkerung, Fläche und Postleitzahlen werden aus untergeordneten Einheitena aufsummiert.
+In diesem Verzeichnis sind die hierarchischen Informationen erhalten. Die Bevölkerung, Fläche und Postleitzahlen werden aus untergeordneten Einheiten zusammengeführt.
 
 Eine vereinfachte Version des Verzeichnisses ist auf [https://gvz.tuerantuer.org](https://gvz.tuerantuer.org) nutzbar. Über die grafische [API](#api-dokumentation) stehen alle Informationen zur Verfügung.
 
