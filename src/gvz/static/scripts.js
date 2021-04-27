@@ -51,7 +51,7 @@ function details( key ) {
         "<tr><th scope='row'>Gemeindetyp</th><td>"+data['division_type_name']+"</td></tr>";
         if (data["division_category"] == 60 ){
         searchhtml = searchhtml + 
-            "<tr><th scope='row'>Anschrift</th><td>"+data['office_name']+", "+data['office_street']+", "+data['office_city']+", "+data['office_zip']+"</td></tr>" +
+            "<tr><th scope='row'>Anschrift</th><td>"+data['office_name']+"<br>"+data['office_street']+"<br>"+data['office_zip']+" "+data['office_city']+"</td></tr>" +
             "<tr><th scope='row'>L&auml;ngengrad</th><td>"+data['longitude']+"</td></tr>" +
             "<tr><th scope='row'>Breitengrad</th><td>"+data['latitude']+"</td></tr>";
         }
