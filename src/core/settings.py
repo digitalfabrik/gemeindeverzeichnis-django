@@ -9,12 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import configparser
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+CONFIG = configparser.ConfigParser()
+if Path("/etc/gvz.ini").exists():
+    CONFIG.read('/etc/gvz.ini')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -23,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qeg_+j2_l!qu6#zval4$b94&3g%r&u4y#1ooa_rpg%)p=&)(*q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = "debug" in CONFIG["DEFAULT"] and CONFIG["DEFAULT"]["debug"].lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = CONFIG["DEFAULT"]["hosts"].split(",") if "hosts" in CONFIG["DEFAULT"] else ["localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -75,7 +79,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DB = "postgres"
+DB = "sqlite" if "database" not in CONFIG else "postgres"
 
 if DB == "sqlite3":
     DATABASES = {
@@ -90,7 +94,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'gvz',
             'USER': 'gvz',
-            'PASSWORD': 'password',
+            'PASSWORD': CONFIG["database"]["password"],
             'HOST': 'localhost',
             'PORT': '5432',
         }
