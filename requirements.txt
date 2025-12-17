@@ -1,6 +1,8 @@
 django
 django-filter
 djangorestframework
+gunicorn
+lxml
 psycopg2
 requests
-lxml
+uvicorn
